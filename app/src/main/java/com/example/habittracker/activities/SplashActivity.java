@@ -17,6 +17,11 @@ public class SplashActivity extends AppCompatActivity {
     private static final int SPLACH_TIME = 2000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        if(getSupportActionBar() != null){
+            getSupportActionBar().hide();
+        }
+
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_splash);
@@ -26,6 +31,5 @@ public class SplashActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         },SPLACH_TIME);
-
     }
 }

@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
-            String url = "http://10.0.2.2:8080/api/auth/login";
+            String url = "http://100.121.195.124:8080/api/auth/login";
 
             JSONObject jsonObject = new JSONObject();
             try {
@@ -73,10 +73,19 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     },
                     error -> {
-                        Toast.makeText(LoginActivity.this,
-                                "Login failed",
-                                Toast.LENGTH_SHORT).show();
+
+                        if (error.networkResponse != null) {
+                            int statusCode = error.networkResponse.statusCode;
+                            Toast.makeText(LoginActivity.this,
+                                    "Error code: " + statusCode,
+                                    Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(LoginActivity.this,
+                                    "Network error: " + error.toString(),
+                                    Toast.LENGTH_LONG).show();
+                        }
                     }
+
             );
             VolleySingleton.getInstance(this).getRequestQueue().add(request);
         });
@@ -85,6 +94,9 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("app_prefs",MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("jwt_token",token);
+        Toast.makeText(LoginActivity.this,
+                "Token : " + token,
+                Toast.LENGTH_SHORT).show();
         editor.apply();
     }
 }
