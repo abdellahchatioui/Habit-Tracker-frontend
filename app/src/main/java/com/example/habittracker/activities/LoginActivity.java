@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -45,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
-            String url = "http://100.121.195.124:8080/api/auth/login";
+            String url = "http://100.121.194.240:8080/api/auth/login";
 
             JSONObject jsonObject = new JSONObject();
             try {
@@ -88,6 +89,13 @@ public class LoginActivity extends AppCompatActivity {
 
             );
             VolleySingleton.getInstance(this).getRequestQueue().add(request);
+
+        });
+
+        TextView txtRegister = findViewById(R.id.txtRegister);
+
+        txtRegister.setOnClickListener(v -> {
+            startActivity(new Intent(this, RegisterActivity.class));
         });
     }
     private void saveToken(String token){
