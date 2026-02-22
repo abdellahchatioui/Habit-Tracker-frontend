@@ -101,9 +101,6 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("app_prefs",MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("jwt_token",token);
-        Toast.makeText(LoginActivity.this,
-                "Token : " + token,
-                Toast.LENGTH_SHORT).show();
         editor.apply();
     }
 }
