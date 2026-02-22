@@ -42,7 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
 
-                String url = "http://100.121.194.240:8080/api/auth/register";
+                String url = "http://192.168.1.37:8080/api/auth/register";
 
                 JSONObject jsonObject = new JSONObject();
                 try {

@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
-            String url = "http://100.121.194.240:8080/api/auth/login";
+            String url = "http://192.168.1.37:8080/api/auth/login";
 
             JSONObject jsonObject = new JSONObject();
             try {
