@@ -43,14 +43,22 @@ public class AddHabitActivity extends AppCompatActivity {
 
     private void saveHabit() {
 
+        String title = etTitle.getText().toString().trim();
+        String description = etDescription.getText().toString().trim();
+        String frequency = etFrequency.getText().toString().trim();
+
+        if(title.isEmpty() || description.isEmpty() || frequency.isEmpty()){
+            Toast.makeText(this, "Fill all fields", Toast.LENGTH_SHORT).show();
+            return;
+        }
         String url = "http://192.168.1.37:8080/api/habits";
 
         JSONObject json = new JSONObject();
 
         try {
-            json.put("title", etTitle.getText().toString());
-            json.put("description", etDescription.getText().toString());
-            json.put("frequency", etFrequency.getText().toString());
+            json.put("title", title);
+            json.put("description", description);
+            json.put("frequency", frequency);
             json.put("completed",false);
         } catch (JSONException e) {
             e.printStackTrace();

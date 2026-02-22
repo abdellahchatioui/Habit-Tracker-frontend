@@ -11,9 +11,16 @@ import java.util.List;
 public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.HabitViewHolder> {
 
     private List<Habit> habits;
-
+    private OnHabitClickListener listener;
     public HabitAdapter(List<Habit> habits) {
         this.habits = habits;
+    }
+    public HabitAdapter(List<Habit> habits, OnHabitClickListener listener) {
+        this.habits = habits;
+        this.listener = listener;
+    }
+    public interface OnHabitClickListener {
+        void onHabitClick(Habit habit);
     }
 
     @Override
@@ -30,6 +37,9 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.HabitViewHol
         holder.description.setText(habit.getDescription());
         holder.frequency.setText(habit.getFrequency());
         holder.checkBox.setChecked(habit.getCompleted());
+        holder.itemView.setOnClickListener(v -> {
+            listener.onHabitClick(habit);
+        });
     }
 
     @Override

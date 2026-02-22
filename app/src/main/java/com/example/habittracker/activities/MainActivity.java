@@ -49,7 +49,17 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new HabitAdapter(habitList);
+        adapter = new HabitAdapter(habitList, habit -> {
+
+            Intent intent = new Intent(MainActivity.this, HabitDetailsActivity.class);
+            intent.putExtra("habit_id", habit.getId());
+            intent.putExtra("title", habit.getTitle());
+            intent.putExtra("description", habit.getDescription());
+            intent.putExtra("frequency", habit.getFrequency());
+            intent.putExtra("completed", habit.getCompleted());
+
+            startActivity(intent);
+        });
         recyclerView.setAdapter(adapter);
 
         FloatingActionButton fab = findViewById(R.id.fabAddHabit);
