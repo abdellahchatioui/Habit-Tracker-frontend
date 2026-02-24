@@ -1,12 +1,11 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="24dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_gravity="center"
-        android:gravity="center"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -21,29 +20,25 @@
             android:id="@+id/etDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Description"
-            android:layout_marginTop="16dp"/>
+            android:hint="Description"/>
 
         <EditText
             android:id="@+id/etFrequency"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Frequency"
-            android:layout_marginTop="16dp"/>
+            android:hint="Frequency"/>
 
 
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/checkCompleted"
-            android:text="Completed"
-            android:layout_marginTop="16dp"/>
+            android:text="Completed"/>
 
 
         <Button
             android:id="@+id/btnUpdate"
             android:text="Update"
-            android:layout_marginTop="24dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
@@ -55,6 +50,21 @@
             android:layout_marginTop="12dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/btnTrackDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Track Specific Day"
+            android:layout_marginTop="12dp"/>
+
+        <com.kizitonwose.calendar.view.CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cv_dayViewResource="@layout/calendar_day_layout" />
+        <!-- Ensure @layout/calendar_day_layout actually exists! -->
+
 
     </LinearLayout>
 </ScrollView>
