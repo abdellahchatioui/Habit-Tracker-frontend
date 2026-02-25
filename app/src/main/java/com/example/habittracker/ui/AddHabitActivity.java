@@ -1,4 +1,4 @@
-package com.example.habittracker.activities;
+package com.example.habittracker.ui;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -6,16 +6,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.habittracker.R;
 import com.example.habittracker.network.VolleySingleton;
+import com.example.habittracker.utils.AppConstants;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,7 +28,9 @@ public class AddHabitActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_habit);
+        setContentView(R.layout.activity_add_habit);;
+
+        findViewById(R.id.btnBack).setOnClickListener(v -> finish());
 
         etTitle = findViewById(R.id.etTitle);
         etDescription = findViewById(R.id.etDescription);
@@ -51,7 +50,7 @@ public class AddHabitActivity extends AppCompatActivity {
             Toast.makeText(this, "Fill all fields", Toast.LENGTH_SHORT).show();
             return;
         }
-        String url = "http://192.168.1.37:8080/api/habits";
+        String url = AppConstants.HABIT_URL;
 
         JSONObject json = new JSONObject();
 

@@ -1,4 +1,4 @@
-package com.example.habittracker.activities;
+package com.example.habittracker.ui;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,15 +10,12 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.habittracker.R;
 import com.example.habittracker.network.VolleySingleton;
+import com.example.habittracker.utils.AppConstants;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
-            String url = "http://192.168.1.37:8080/api/auth/login";
+            String url = AppConstants.LOGIN_URL;;
 
             JSONObject jsonObject = new JSONObject();
             try {

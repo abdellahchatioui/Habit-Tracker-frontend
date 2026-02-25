@@ -1,4 +1,4 @@
-package com.example.habittracker.activities;
+package com.example.habittracker.ui;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -7,9 +7,6 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,6 +16,7 @@ import com.example.habittracker.R;
 import com.example.habittracker.adapters.HabitAdapter;
 import com.example.habittracker.models.Habit;
 import com.example.habittracker.network.VolleySingleton;
+import com.example.habittracker.utils.AppConstants;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONException;
@@ -37,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        loadHabits(); // refresh list when returning
+        loadHabits();
     }
 
     @Override
@@ -75,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadHabits() {
 
-        String url = "http://192.168.1.37:8080/api/habits";
+        String url = AppConstants.HABIT_URL;
 
         JsonArrayRequest request = new JsonArrayRequest(
                 Request.Method.GET,

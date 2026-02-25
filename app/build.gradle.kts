@@ -30,6 +30,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+        isCoreLibraryDesugaringEnabled = true
     }
 }
 
@@ -38,9 +39,12 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation("com.kizitonwose.calendar:view:2.4.0")
+    implementation("com.kizitonwose.calendar:compose:2.4.0")
     implementation("com.android.volley:volley:1.2.1")
     implementation("com.google.android.material:material:1.9.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
 }

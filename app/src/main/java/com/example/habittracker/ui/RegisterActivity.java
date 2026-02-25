@@ -1,4 +1,4 @@
-package com.example.habittracker.activities;
+package com.example.habittracker.ui;
 
 import android.os.Bundle;
 import android.widget.Button;
@@ -7,14 +7,12 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.habittracker.R;
 import com.example.habittracker.network.VolleySingleton;
+import com.example.habittracker.utils.AppConstants;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
 
-                String url = "http://192.168.1.37:8080/api/auth/register";
+                String url = AppConstants.REGISTER_URL;;
 
                 JSONObject jsonObject = new JSONObject();
                 try {

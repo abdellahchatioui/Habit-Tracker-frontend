@@ -13,25 +13,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HabitTracker">
         <activity
-            android:name=".activities.AdminDashboardActivity"
+            android:name=".ui.HabitDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.StatisticsActivity"
+            android:name=".ui.AddHabitActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.HabitDetailsActivity"
+            android:name=".ui.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.AddHabitActivity"
+            android:name=".ui.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.RegisterActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.LoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.SplashActivity"
+            android:name=".ui.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="false">
         </activity>
     </application>
