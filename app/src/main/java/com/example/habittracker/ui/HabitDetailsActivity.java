@@ -127,26 +127,38 @@ public class HabitDetailsActivity extends AppCompatActivity {
     }
 
     private void loadCompletions() {
-        String url = AppConstants.HABIT_URL + "/" + habitId + "/completions";
-        
+
+        YearMonth currentMonth = YearMonth.now();
+
+        String url = AppConstants.HABIT_URL + "/" + habitId +
+                "/logs?year=" + currentMonth.getYear() +
+                "&month=" + currentMonth.getMonthValue();
+
         JsonArrayRequest request = new JsonArrayRequest(
                 Request.Method.GET,
                 url,
                 null,
                 response -> {
+
                     completedDates.clear();
+
                     for (int i = 0; i < response.length(); i++) {
                         try {
-                            String dateStr = response.getString(i);
+                            JSONObject obj = response.getJSONObject(i);
+
+                            String dateStr = obj.getString("date");
+
                             completedDates.add(LocalDate.parse(dateStr));
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
+
                     calendarView.notifyCalendarChanged();
                 },
                 error -> {
-                    // Endpoint might not be implemented yet
+                    error.printStackTrace();
                 }
         ) {
             @Override
@@ -154,8 +166,10 @@ public class HabitDetailsActivity extends AppCompatActivity {
                 return HabitDetailsActivity.this.getHeaders();
             }
         };
+
         VolleySingleton.getInstance(this).getRequestQueue().add(request);
     }
+
 
     private void toggleDate(LocalDate date) {
         boolean wasCompleted = completedDates.contains(date);
@@ -165,10 +179,10 @@ public class HabitDetailsActivity extends AppCompatActivity {
             completedDates.add(date);
         }
         calendarView.notifyDateChanged(date);
-        
+
         // Example toggle endpoint: POST /api/habits/{id}/toggle?date=yyyy-MM-dd
         String url = AppConstants.HABIT_URL + "/" + habitId + "/toggle?date=" + date.toString();
-        
+
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 url,
