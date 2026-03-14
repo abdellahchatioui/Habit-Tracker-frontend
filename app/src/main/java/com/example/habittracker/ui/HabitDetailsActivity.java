@@ -152,7 +152,11 @@ public class HabitDetailsActivity extends AppCompatActivity {
                 null,
                 response -> {
 
-                    completedDates.clear();
+                    completedDates.removeIf(date ->
+                            date.getYear() == year &&
+                                    date.getMonthValue() == month
+                    );
+
 
                     for (int i = 0; i < response.length(); i++) {
                         try {
