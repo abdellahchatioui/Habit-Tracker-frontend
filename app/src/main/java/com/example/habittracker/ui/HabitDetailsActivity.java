@@ -110,10 +110,15 @@ public class HabitDetailsActivity extends AppCompatActivity {
         });
 
         YearMonth currentMonth = YearMonth.now();
-        YearMonth startMonth = currentMonth.minusMonths(12);
-        YearMonth endMonth = currentMonth.plusMonths(12);
+
+        YearMonth startMonth = YearMonth.of(2000, 1);
+        YearMonth endMonth = YearMonth.of(2100, 12);
 
         calendarView.setup(startMonth, endMonth, DayOfWeek.MONDAY);
+
+        calendarView.scrollToMonth(currentMonth);
+
+
         loadCompletionsForMonth(
                 currentMonth.getYear(),
                 currentMonth.getMonthValue()
@@ -150,7 +155,11 @@ public class HabitDetailsActivity extends AppCompatActivity {
                 null,
                 response -> {
 
-                    completedDates.clear();
+                    completedDates.removeIf(date ->
+                            date.getYear() == year &&
+                                    date.getMonthValue() == month
+                    );
+
 
                     for (int i = 0; i < response.length(); i++) {
                         try {
