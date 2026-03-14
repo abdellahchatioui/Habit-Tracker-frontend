@@ -110,8 +110,9 @@ public class HabitDetailsActivity extends AppCompatActivity {
         });
 
         YearMonth currentMonth = YearMonth.now();
-        YearMonth startMonth = currentMonth.minusMonths(12);
-        YearMonth endMonth = currentMonth.plusMonths(12);
+
+        YearMonth startMonth = currentMonth.minusYears(5);
+        YearMonth endMonth = currentMonth.plusYears(5);
 
         calendarView.setup(startMonth, endMonth, DayOfWeek.MONDAY);
         loadCompletionsForMonth(
@@ -119,6 +120,7 @@ public class HabitDetailsActivity extends AppCompatActivity {
                 currentMonth.getMonthValue()
         );
 
+        calendarView.scrollToMonth(currentMonth);
 
         tvMonthName.setText(monthTitleFormatter.format(currentMonth));
 
