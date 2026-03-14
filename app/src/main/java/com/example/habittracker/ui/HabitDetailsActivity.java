@@ -121,7 +121,7 @@ public class HabitDetailsActivity extends AppCompatActivity {
 
 
         tvMonthName.setText(monthTitleFormatter.format(currentMonth));
-        
+
         calendarView.setMonthScrollListener(calendarMonth -> {
 
             YearMonth ym = calendarMonth.getYearMonth();
@@ -135,15 +135,14 @@ public class HabitDetailsActivity extends AppCompatActivity {
 
             return Unit.INSTANCE;
         });
-        
-        loadCompletions();
+
+
     }
 
     private void loadCompletionsForMonth(int year, int month) {
 
         String url = AppConstants.HABIT_URL + "/" + habitId +
-                "/logs?year=" + currentMonth.getYear() +
-                "&month=" + currentMonth.getMonthValue();
+                "/logs?year=" + year + "&month=" + month;
 
         JsonArrayRequest request = new JsonArrayRequest(
                 Request.Method.GET,
@@ -155,6 +154,7 @@ public class HabitDetailsActivity extends AppCompatActivity {
 
                     for (int i = 0; i < response.length(); i++) {
                         try {
+
                             JSONObject obj = response.getJSONObject(i);
 
                             String dateStr = obj.getString("date");
@@ -168,9 +168,7 @@ public class HabitDetailsActivity extends AppCompatActivity {
 
                     calendarView.notifyCalendarChanged();
                 },
-                error -> {
-                    error.printStackTrace();
-                }
+                error -> error.printStackTrace()
         ) {
             @Override
             public Map<String, String> getHeaders() {
