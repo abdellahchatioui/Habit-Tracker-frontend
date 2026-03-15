@@ -70,17 +70,9 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     },
                     error -> {
-
-                        if (error.networkResponse != null) {
-                            int statusCode = error.networkResponse.statusCode;
                             Toast.makeText(LoginActivity.this,
-                                    "Error code: " + statusCode,
+                                    "Network error !" ,
                                     Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(LoginActivity.this,
-                                    "Network error: " + error.toString(),
-                                    Toast.LENGTH_LONG).show();
-                        }
                     }
 
             );

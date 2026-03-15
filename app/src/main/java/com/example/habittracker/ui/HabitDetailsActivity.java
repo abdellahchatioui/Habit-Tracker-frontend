@@ -20,6 +20,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.example.habittracker.R;
 import com.example.habittracker.network.VolleySingleton;
+import com.example.habittracker.repository.HabitRepository;
 import com.example.habittracker.utils.AppConstants;
 import com.kizitonwose.calendar.core.CalendarDay;
 import com.kizitonwose.calendar.core.DayPosition;
@@ -50,12 +51,14 @@ public class HabitDetailsActivity extends AppCompatActivity {
     private CalendarView calendarView;
     private Set<LocalDate> completedDates = new HashSet<>();
     private final DateTimeFormatter monthTitleFormatter = DateTimeFormatter.ofPattern("MMMM yyyy");
+    private HabitRepository habitRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_habit_details);
+        habitRepository = new HabitRepository(this);
 
         habitId = getIntent().getLongExtra("habit_id", -1);
         
@@ -146,22 +149,17 @@ public class HabitDetailsActivity extends AppCompatActivity {
 
     private void loadCompletionsForMonth(int year, int month) {
 
-        String url = AppConstants.HABIT_URL + "/" + habitId +
-                "/logs?year=" + year + "&month=" + month;
+        habitRepository.loadLogsForMonth(
+                habitId,
+                year,
+                month,
 
-        JsonArrayRequest request = new JsonArrayRequest(
-                Request.Method.GET,
-                url,
-                null,
                 response -> {
 
-                    completedDates.removeIf(date ->
-                            date.getYear() == year &&
-                                    date.getMonthValue() == month
-                    );
-
+                    completedDates.clear();
 
                     for (int i = 0; i < response.length(); i++) {
+
                         try {
 
                             JSONObject obj = response.getJSONObject(i);
@@ -177,17 +175,14 @@ public class HabitDetailsActivity extends AppCompatActivity {
 
                     calendarView.notifyCalendarChanged();
                 },
-                error -> error.printStackTrace()
-        ) {
-            @Override
-            public Map<String, String> getHeaders() {
-                return HabitDetailsActivity.this.getHeaders();
-            }
-        };
 
-        VolleySingleton.getInstance(this).getRequestQueue().add(request);
+                error -> Toast.makeText(
+                        this,
+                        "Failed to load logs",
+                        Toast.LENGTH_SHORT
+                ).show()
+        );
     }
-
 
     private void toggleDate(LocalDate date) {
 
