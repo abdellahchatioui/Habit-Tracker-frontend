@@ -287,8 +287,9 @@ public class HabitDetailsActivity extends AppCompatActivity {
     }
 
     private void updateHabit() {
-        String url = AppConstants.HABIT_URL + "/" + habitId;
+
         JSONObject json = new JSONObject();
+
         try {
             json.put("title", etTitle.getText().toString());
             json.put("description", etDescription.getText().toString());
@@ -298,41 +299,31 @@ public class HabitDetailsActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        JsonObjectRequest request = new JsonObjectRequest(
-                Request.Method.PUT,
-                url,
+        habitRepository.updateHabit(
+                this,
+                habitId,
                 json,
+
                 response -> {
                     Toast.makeText(this, "Updated", Toast.LENGTH_SHORT).show();
                     finish();
                 },
-                error -> Toast.makeText(this, "Update failed", Toast.LENGTH_SHORT).show()
-        ) {
-            @Override
-            public Map<String, String> getHeaders() {
-                return HabitDetailsActivity.this.getHeaders();
-            }
-        };
-        VolleySingleton.getInstance(this).getRequestQueue().add(request);
-    }
 
+                error -> Toast.makeText(this, "Update failed", Toast.LENGTH_SHORT).show()
+        );
+    }
     private void deleteHabit() {
-        String url = AppConstants.HABIT_URL + "/" + habitId;
-        StringRequest request = new StringRequest(
-                Request.Method.DELETE,
-                url,
+
+        habitRepository.deleteHabit(
+                this,
+                habitId,
+
                 response -> {
                     Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
                     finish();
                 },
-                error -> Toast.makeText(this, "Delete failed", Toast.LENGTH_SHORT).show()
-        ) {
-            @Override
-            public Map<String, String> getHeaders() {
-                return HabitDetailsActivity.this.getHeaders();
-            }
-        };
-        VolleySingleton.getInstance(this).getRequestQueue().add(request);
-    }
 
+                error -> Toast.makeText(this, "Delete failed", Toast.LENGTH_SHORT).show()
+        );
+    }
 }
