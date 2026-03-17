@@ -83,7 +83,10 @@ public class HabitDetailsActivity extends AppCompatActivity {
     }
 
     private void setupCalendar() {
+        LocalDate today = LocalDate.now();
+
         calendarView.setDayBinder(new MonthDayBinder<DayViewContainer>() {
+
             @NonNull
             @Override
             public DayViewContainer create(@NonNull View view) {
@@ -92,19 +95,32 @@ public class HabitDetailsActivity extends AppCompatActivity {
 
             @Override
             public void bind(@NonNull DayViewContainer container, CalendarDay day) {
+
                 container.day = day;
+
                 TextView textView = container.textView;
                 ImageView checkImage = container.checkImage;
-                
-                textView.setText(String.valueOf(day.getDate().getDayOfMonth()));
-                
+
+                LocalDate date = day.getDate();
+
+                textView.setText(String.valueOf(date.getDayOfMonth()));
+
+                textView.setBackground(null);
+
                 if (day.getPosition() == DayPosition.MonthDate) {
+
                     textView.setAlpha(1f);
-                    if (completedDates.contains(day.getDate())) {
+
+                    if (completedDates.contains(date)) {
                         checkImage.setVisibility(View.VISIBLE);
                     } else {
                         checkImage.setVisibility(View.GONE);
                     }
+
+                    if (date.equals(today)) {
+                        textView.setBackgroundResource(R.drawable.bg_today_border);
+                    }
+
                 } else {
                     textView.setAlpha(0.3f);
                     checkImage.setVisibility(View.GONE);
@@ -318,4 +334,5 @@ public class HabitDetailsActivity extends AppCompatActivity {
         };
         VolleySingleton.getInstance(this).getRequestQueue().add(request);
     }
+
 }
