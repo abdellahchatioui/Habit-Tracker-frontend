@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         loadHabits();
     }
 
-    // ================= LOAD HABITS =================
+    // LOAD HABITS
     private void loadHabits() {
 
         String url = AppConstants.HABIT_URL;
@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
         VolleySingleton.getInstance(this).getRequestQueue().add(request);
     }
 
-    // ================= OPEN DETAILS =================
+    // OPEN DETAILS
     private void openDetails(Habit habit) {
 
         Intent intent = new Intent(this, HabitDetailsActivity.class);
@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    // ================= UPDATE + DELETE DIALOG =================
+
     private void showUpdateDialog(Habit habit) {
 
         View view = getLayoutInflater().inflate(R.layout.dialog_update_habit, null);
@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
 
         dialog.show();
 
-        // ================= UPDATE CLICK =================
+        // UPDATE CLICK
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
 
             new AlertDialog.Builder(this, R.style.DarkAlertDialogCustom)
@@ -201,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
                     .show();
         });
 
-        // ================= DELETE CLICK =================
+        // DELETE CLICK
         dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener(v -> {
 
             new AlertDialog.Builder(this, R.style.DarkAlertDialogCustom)
