@@ -45,8 +45,7 @@ import kotlin.Unit;
 public class HabitDetailsActivity extends AppCompatActivity {
 
     private Long habitId;
-    private EditText etTitle, etDescription, etFrequency;
-    private CheckBox checkCompleted;
+
     private TextView tvMonthName;
     private CalendarView calendarView;
     private Set<LocalDate> completedDates = new HashSet<>();
@@ -61,26 +60,15 @@ public class HabitDetailsActivity extends AppCompatActivity {
         habitRepository = new HabitRepository(this);
 
         habitId = getIntent().getLongExtra("habit_id", -1);
-        
+
         tvMonthName = findViewById(R.id.tvMonthName);
         calendarView = findViewById(R.id.calendarView);
-        etTitle = findViewById(R.id.etTitle);
-        etDescription = findViewById(R.id.etDescription);
-        etFrequency = findViewById(R.id.etFrequency);
-        checkCompleted = findViewById(R.id.checkCompleted);
 
         findViewById(R.id.btnBack).setOnClickListener(v -> finish());
-        
-        etTitle.setText(getIntent().getStringExtra("title"));
-        etDescription.setText(getIntent().getStringExtra("description"));
-        etFrequency.setText(getIntent().getStringExtra("frequency"));
-        checkCompleted.setChecked(getIntent().getBooleanExtra("completed", false));
 
         setupCalendar();
-        
-        findViewById(R.id.btnUpdate).setOnClickListener(v -> showUpdateConfirmation());
-        findViewById(R.id.btnDelete).setOnClickListener(v -> showDeleteConfirmation());
-    }
+
+          }
 
     private void setupCalendar() {
         LocalDate today = LocalDate.now();
@@ -267,63 +255,5 @@ public class HabitDetailsActivity extends AppCompatActivity {
         return headers;
     }
 
-    private void showDeleteConfirmation() {
-        new AlertDialog.Builder(this)
-                .setTitle("Delete Habit")
-                .setMessage("Are you sure you want to delete this habit?")
-                .setPositiveButton("Delete", (dialog, which) -> deleteHabit())
-                .setNegativeButton("Cancel", null)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
-    }
 
-    private void showUpdateConfirmation() {
-        new AlertDialog.Builder(this)
-                .setTitle("Update Habit")
-                .setMessage("Save changes to this habit?")
-                .setPositiveButton("Update", (dialog, which) -> updateHabit())
-                .setNegativeButton("Cancel", null)
-                .show();
-    }
-
-    private void updateHabit() {
-
-        JSONObject json = new JSONObject();
-
-        try {
-            json.put("title", etTitle.getText().toString());
-            json.put("description", etDescription.getText().toString());
-            json.put("frequency", etFrequency.getText().toString());
-            json.put("completed", checkCompleted.isChecked());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        habitRepository.updateHabit(
-                this,
-                habitId,
-                json,
-
-                response -> {
-                    Toast.makeText(this, "Updated", Toast.LENGTH_SHORT).show();
-                    finish();
-                },
-
-                error -> Toast.makeText(this, "Update failed", Toast.LENGTH_SHORT).show()
-        );
-    }
-    private void deleteHabit() {
-
-        habitRepository.deleteHabit(
-                this,
-                habitId,
-
-                response -> {
-                    Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
-                    finish();
-                },
-
-                error -> Toast.makeText(this, "Delete failed", Toast.LENGTH_SHORT).show()
-        );
-    }
 }
