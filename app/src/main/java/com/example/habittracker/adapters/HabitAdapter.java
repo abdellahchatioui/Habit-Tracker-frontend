@@ -20,7 +20,8 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.HabitViewHol
         this.listener = listener;
     }
     public interface OnHabitClickListener {
-        void onHabitClick(Habit habit);
+        void onClick(Habit habit);
+        void onLongClick(Habit habit);
     }
 
     @Override
@@ -38,7 +39,12 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.HabitViewHol
         holder.frequency.setText(habit.getFrequency());
         holder.checkBox.setChecked(habit.getCompleted());
         holder.itemView.setOnClickListener(v -> {
-            listener.onHabitClick(habit);
+            listener.onClick(habit);
+        });
+
+        holder.itemView.setOnLongClickListener(v -> {
+            listener.onLongClick(habit);
+            return true;
         });
     }
 
