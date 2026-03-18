@@ -2,8 +2,35 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.HabitTracker" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:windowBackground">@color/dark_bg</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/light_grey</item>
+        <item name="colorPrimary">@color/blue_accent</item>
     </style>
 
     <style name="Theme.HabitTracker" parent="Base.Theme.HabitTracker" />
+
+    <style name="DarkAlertDialogCustom" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/light_grey</item>
+        <item name="colorAccent">@color/blue_accent</item>
+        <item name="android:background">@color/dark_surface</item>
+        <item name="buttonBarPositiveButtonStyle">@style/AlertButton.Positive</item>
+        <item name="buttonBarNeutralButtonStyle">@style/AlertButton.Neutral</item>
+        <item name="buttonBarNegativeButtonStyle">@style/AlertButton.Negative</item>
+    </style>
+
+    <style name="AlertButton.Positive" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:textColor">@color/blue_accent</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AlertButton.Neutral" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:textColor">@color/red_accent</item>
+    </style>
+
+    <style name="AlertButton.Negative" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:textColor">@color/grey_text</item>
+    </style>
 </resources>
