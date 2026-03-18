@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#121212"
     android:fillViewport="true">
 
@@ -54,25 +55,35 @@
             android:backgroundTint="@android:color/white"
             android:padding="12dp"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSave"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:backgroundTint="#5B86E5"
             android:padding="14dp"
             android:text="Save Habit"
-            android:textColor="@android:color/white"
-            android:textSize="16sp" />
+            android:textAllCaps="false"
+            android:textColor="#5B86E5"
+            app:cornerRadius="24dp"
+            app:strokeColor="#5B86E5"
+            app:strokeWidth="1.5dp"/>
 
-        <Button
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnBack"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:textColor="#A0A0A0"
-            android:text="Back to List"/>
+            android:layout_marginTop="12dp"
+            android:padding="14dp"
+            android:text="Back to List"
+            android:textAllCaps="false"
+            android:textColor="#8E8E8E"
+            app:cornerRadius="24dp"
+            app:strokeColor="#505050"
+            app:strokeWidth="1.5dp" />
+
 
     </LinearLayout>
 </ScrollView>

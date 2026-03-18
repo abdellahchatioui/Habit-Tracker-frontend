@@ -1,74 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#121212"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    >
 
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="24dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            android:layout_gravity="center_horizontal"
-            android:text="Habit Details"
-            android:textColor="@android:color/white"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/etTitle"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@android:color/white"
-            android:hint="Title"
-            android:padding="12dp"
-            android:textColor="@android:color/white"
-            android:textColorHint="#A0A0A0" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="24dp">
 
-        <EditText
-            android:id="@+id/etDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="@android:color/white"
-            android:hint="Description"
-            android:padding="12dp"
-            android:textColor="@android:color/white"
-            android:textColorHint="#A0A0A0" />
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@android:drawable/ic_menu_revert"
+                app:tint="@android:color/white"
+                android:padding="4dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackgroundBorderless"/>
 
-        <EditText
-            android:id="@+id/etFrequency"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="@android:color/white"
-            android:hint="Frequency"
-            android:padding="12dp"
-            android:textColor="@android:color/white"
-            android:textColorHint="#A0A0A0" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Habit Details"
+                android:textColor="@android:color/white"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_marginEnd="32dp"/>
+        </LinearLayout>
 
-        <CheckBox
-            android:id="@+id/checkCompleted"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:buttonTint="#5B86E5"
-            android:text="Currently Completed"
-            android:textColor="@android:color/white" />
+
 
         <TextView
             android:id="@+id/tvMonthName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="32dp"
             android:layout_gravity="center_horizontal"
             android:textColor="@android:color/white"
             android:textSize="18sp"
@@ -76,48 +58,12 @@
 
         <com.kizitonwose.calendar.view.CalendarView
             android:id="@+id/calendarView"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="80dp"
             app:cv_dayViewResource="@layout/calendar_day_layout"
             app:cv_orientation="horizontal" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnUpdate"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:padding="14dp"
-            android:text="Update Changes"
-            android:textAllCaps="false"
-            android:textColor="#5B86E5"
-            app:cornerRadius="24dp"
-            app:strokeColor="#5B86E5"
-            app:strokeWidth="1.5dp"/>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnDelete"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:padding="14dp"
-            android:text="Delete Habit"
-            android:textAllCaps="false"
-            android:textColor="#FF5252"
-            app:cornerRadius="24dp"
-            app:strokeColor="#FF5252"
-            app:strokeWidth="1.5dp" />
-
-        <Button
-            android:id="@+id/btnBack"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:textColor="#A0A0A0"
-            android:text="Back to List"/>
 
     </LinearLayout>
 </ScrollView>
