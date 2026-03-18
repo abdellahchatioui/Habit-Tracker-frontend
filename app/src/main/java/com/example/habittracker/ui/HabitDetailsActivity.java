@@ -3,20 +3,15 @@ package com.example.habittracker.ui;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.example.habittracker.R;
 import com.example.habittracker.network.VolleySingleton;
@@ -192,27 +187,36 @@ public class HabitDetailsActivity extends AppCompatActivity {
 
         boolean wasCompleted = completedDates.contains(date);
 
+        String url = AppConstants.HABIT_URL + "/" + habitId +
+                "/log?date=" + date.toString();
+
+        int method;
+
         if (wasCompleted) {
+            method = Request.Method.DELETE;
             completedDates.remove(date);
         } else {
+            method = Request.Method.POST;
             completedDates.add(date);
         }
 
         calendarView.notifyDateChanged(date);
 
-        String url = AppConstants.HABIT_URL + "/" + habitId +
-                "/log?date=" + date.toString();
-
         StringRequest request = new StringRequest(
-                Request.Method.POST,
+                method,
                 url,
-                response -> {},
+
+                response -> {
+                    // nothing to do
+                },
+
                 error -> {
 
-                    if (wasCompleted)
+                    if (wasCompleted) {
                         completedDates.add(date);
-                    else
+                    } else {
                         completedDates.remove(date);
+                    }
 
                     calendarView.notifyDateChanged(date);
 
@@ -221,13 +225,24 @@ public class HabitDetailsActivity extends AppCompatActivity {
         ) {
             @Override
             public Map<String, String> getHeaders() {
-                return HabitDetailsActivity.this.getHeaders();
+                return buildHeaders();
             }
         };
 
         VolleySingleton.getInstance(this).getRequestQueue().add(request);
     }
 
+
+    private Map<String, String> buildHeaders() {
+
+        SharedPreferences prefs = getSharedPreferences("app_prefs", MODE_PRIVATE);
+
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Authorization", "Bearer " + prefs.getString("jwt_token", ""));
+        headers.put("Content-Type", "application/json");
+
+        return headers;
+    }
 
     private class DayViewContainer extends ViewContainer {
         TextView textView;
@@ -238,7 +253,7 @@ public class HabitDetailsActivity extends AppCompatActivity {
             super(view);
             textView = view.findViewById(R.id.calendarDayText);
             checkImage = view.findViewById(R.id.checkImage);
-            
+
             view.setOnClickListener(v -> {
                 if (day != null && day.getPosition() == DayPosition.MonthDate) {
                     toggleDate(day.getDate());
