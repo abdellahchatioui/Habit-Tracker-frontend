@@ -4,11 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#121212"
-    android:fillViewport="true"
-    >
+    android:fillViewport="true">
 
     <LinearLayout
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -21,16 +19,17 @@
             android:gravity="center_vertical"
             android:layout_marginBottom="24dp">
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/btnBack"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:src="@android:drawable/ic_menu_revert"
                 app:tint="@android:color/white"
-                android:padding="4dp"
+                android:scaleType="centerInside"
                 android:clickable="true"
                 android:focusable="true"
-                android:background="?attr/selectableItemBackgroundBorderless"/>
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Back" />
 
             <TextView
                 android:layout_width="0dp"
@@ -41,10 +40,8 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:gravity="center"
-                android:layout_marginEnd="32dp"/>
+                android:layout_marginEnd="48dp"/>
         </LinearLayout>
-
-
 
         <TextView
             android:id="@+id/tvMonthName"
@@ -58,10 +55,9 @@
 
         <com.kizitonwose.calendar.view.CalendarView
             android:id="@+id/calendarView"
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="90dp"
             app:cv_dayViewResource="@layout/calendar_day_layout"
             app:cv_orientation="horizontal" />
 
