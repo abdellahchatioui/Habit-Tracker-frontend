@@ -285,12 +285,4 @@ public class HabitDetailsActivity extends AppCompatActivity {
         }
     }
 
-    private Map<String, String> getHeaders() {
-        SharedPreferences prefs = getSharedPreferences("app_prefs", MODE_PRIVATE);
-        Map<String, String> headers = new HashMap<>();
-        headers.put("Authorization", "Bearer " + prefs.getString("jwt_token", ""));
-        headers.put("Content-Type", "application/json");
-        return headers;
-    }
-
 }
