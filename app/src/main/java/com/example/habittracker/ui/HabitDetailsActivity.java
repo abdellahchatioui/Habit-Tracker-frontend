@@ -41,6 +41,7 @@ public class HabitDetailsActivity extends AppCompatActivity {
 
     private Long habitId;
 
+    private TextView tvStreak;
     private TextView tvMonthName;
     private CalendarView calendarView;
     private Set<LocalDate> completedDates = new HashSet<>();
@@ -56,6 +57,7 @@ public class HabitDetailsActivity extends AppCompatActivity {
 
         habitId = getIntent().getLongExtra("habit_id", -1);
 
+        tvStreak = findViewById(R.id.tvStreak);
         tvMonthName = findViewById(R.id.tvMonthName);
         calendarView = findViewById(R.id.calendarView);
 
@@ -63,7 +65,7 @@ public class HabitDetailsActivity extends AppCompatActivity {
 
         setupCalendar();
 
-          }
+    }
 
     private void setupCalendar() {
         LocalDate today = LocalDate.now();
@@ -158,31 +160,53 @@ public class HabitDetailsActivity extends AppCompatActivity {
                     completedDates.clear();
 
                     for (int i = 0; i < response.length(); i++) {
-
                         try {
-
                             JSONObject obj = response.getJSONObject(i);
-
                             String dateStr = obj.getString("date");
-
                             completedDates.add(LocalDate.parse(dateStr));
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
 
                     calendarView.notifyCalendarChanged();
+
+                    // 🔥 ADD THIS
+                    updateMonthStreak();
                 },
 
-                error -> Toast.makeText(
-                        this,
-                        "Failed to load logs",
-                        Toast.LENGTH_SHORT
-                ).show()
+                error -> Toast.makeText(this, "Failed to load logs", Toast.LENGTH_SHORT).show()
         );
     }
 
+    private void updateMonthStreak() {
+
+        int streak = calculateMonthStreak();
+
+        tvStreak.setText("🔥 Month Streak: " + streak);
+    }
+    private int calculateMonthStreak() {
+
+        if (completedDates.isEmpty()) return 0;
+
+        int streak = 0;
+
+        // 🔥 Start from latest date in this month
+        LocalDate latest = completedDates.stream()
+                .max(LocalDate::compareTo)
+                .orElse(null);
+
+        if (latest == null) return 0;
+
+        LocalDate current = latest;
+
+        while (completedDates.contains(current)) {
+            streak++;
+            current = current.minusDays(1);
+        }
+
+        return streak;
+    }
     private void toggleDate(LocalDate date) {
 
         boolean wasCompleted = completedDates.contains(date);
@@ -207,7 +231,7 @@ public class HabitDetailsActivity extends AppCompatActivity {
                 url,
 
                 response -> {
-                    // nothing to do
+                    updateMonthStreak();
                 },
 
                 error -> {
@@ -231,7 +255,6 @@ public class HabitDetailsActivity extends AppCompatActivity {
 
         VolleySingleton.getInstance(this).getRequestQueue().add(request);
     }
-
 
     private Map<String, String> buildHeaders() {
 
@@ -269,6 +292,5 @@ public class HabitDetailsActivity extends AppCompatActivity {
         headers.put("Content-Type", "application/json");
         return headers;
     }
-
 
 }
