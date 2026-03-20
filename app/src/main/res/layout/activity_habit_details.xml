@@ -61,6 +61,17 @@
             app:cv_dayViewResource="@layout/calendar_day_layout"
             app:cv_orientation="horizontal" />
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_marginTop="8dp"
+            android:max="100"
+            android:progress="0"
+            android:progressTint="#4CAF50"
+            android:backgroundTint="#2A2A2A"/>
+
         <TextView
             android:id="@+id/tvStreak"
             android:layout_width="wrap_content"
