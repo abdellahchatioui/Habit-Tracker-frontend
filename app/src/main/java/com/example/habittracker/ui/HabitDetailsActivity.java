@@ -200,6 +200,30 @@ public class HabitDetailsActivity extends AppCompatActivity {
         tvStreak.setText("🔥 Streak: " + streak);
         tvDaysDone.setText("📅 Days done: " + doneDays + " / " + totalDays);
         tvProgress.setText("📊 Progress: " + progress + "%");
+
+        // ✅ CHANGE COLOR HERE
+        if (progress < 25) {
+            progressBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
+        } else if (progress < 55) {
+            progressBar.setProgressTintList(ColorStateList.valueOf(Color.YELLOW));
+        } else {
+            progressBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
+        }
+
+        // ✅ THEN animate
+        animateProgress(progress);
+    }
+    private void animateProgress(int progress) {
+
+        ObjectAnimator animation = ObjectAnimator.ofInt(
+                progressBar,
+                "progress",
+                progressBar.getProgress(),
+                progress
+        );
+
+        animation.setDuration(500); // smooth animation
+        animation.start();
     }
     private int calculateMonthStreak() {
 
