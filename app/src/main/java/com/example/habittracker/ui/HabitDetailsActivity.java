@@ -41,7 +41,7 @@ public class HabitDetailsActivity extends AppCompatActivity {
 
     private Long habitId;
 
-    private TextView tvStreak;
+    private TextView tvStreak, tvDaysDone, tvProgress;
     private TextView tvMonthName;
     private CalendarView calendarView;
     private Set<LocalDate> completedDates = new HashSet<>();
@@ -58,6 +58,9 @@ public class HabitDetailsActivity extends AppCompatActivity {
         habitId = getIntent().getLongExtra("habit_id", -1);
 
         tvStreak = findViewById(R.id.tvStreak);
+        tvDaysDone = findViewById(R.id.tvDaysDone);
+        tvProgress = findViewById(R.id.tvProgress);
+
         tvMonthName = findViewById(R.id.tvMonthName);
         calendarView = findViewById(R.id.calendarView);
 
