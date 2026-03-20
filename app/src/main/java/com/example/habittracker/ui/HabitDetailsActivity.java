@@ -1,9 +1,13 @@
 package com.example.habittracker.ui;
 
+import android.animation.ObjectAnimator;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +46,7 @@ public class HabitDetailsActivity extends AppCompatActivity {
     private Long habitId;
 
     private TextView tvStreak, tvDaysDone, tvProgress;
+    private ProgressBar progressBar;
     private TextView tvMonthName;
     private CalendarView calendarView;
     private Set<LocalDate> completedDates = new HashSet<>();
@@ -60,6 +65,7 @@ public class HabitDetailsActivity extends AppCompatActivity {
         tvStreak = findViewById(R.id.tvStreak);
         tvDaysDone = findViewById(R.id.tvDaysDone);
         tvProgress = findViewById(R.id.tvProgress);
+        progressBar = findViewById(R.id.progressBar);
 
         tvMonthName = findViewById(R.id.tvMonthName);
         calendarView = findViewById(R.id.calendarView);
@@ -194,6 +200,30 @@ public class HabitDetailsActivity extends AppCompatActivity {
         tvStreak.setText("🔥 Streak: " + streak);
         tvDaysDone.setText("📅 Days done: " + doneDays + " / " + totalDays);
         tvProgress.setText("📊 Progress: " + progress + "%");
+
+        // ✅ CHANGE COLOR HERE
+        if (progress < 25) {
+            progressBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
+        } else if (progress < 55) {
+            progressBar.setProgressTintList(ColorStateList.valueOf(Color.YELLOW));
+        } else {
+            progressBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
+        }
+
+        // ✅ THEN animate
+        animateProgress(progress);
+    }
+    private void animateProgress(int progress) {
+
+        ObjectAnimator animation = ObjectAnimator.ofInt(
+                progressBar,
+                "progress",
+                progressBar.getProgress(),
+                progress
+        );
+
+        animation.setDuration(500); // smooth animation
+        animation.start();
     }
     private int calculateMonthStreak() {
 
