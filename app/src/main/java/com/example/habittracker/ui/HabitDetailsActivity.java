@@ -175,7 +175,8 @@ public class HabitDetailsActivity extends AppCompatActivity {
                     calendarView.notifyCalendarChanged();
 
                     // 🔥 ADD THIS
-                    updateMonthStreak();
+                    //updateMonthStreak();
+                    updateMonthStats(year, month);
                 },
 
                 error -> Toast.makeText(this, "Failed to load logs", Toast.LENGTH_SHORT).show()
@@ -248,7 +249,10 @@ public class HabitDetailsActivity extends AppCompatActivity {
                 url,
 
                 response -> {
-                    updateMonthStreak();
+                    updateMonthStats(
+                            calendarView.findFirstVisibleMonth().getYearMonth().getYear(),
+                            calendarView.findFirstVisibleMonth().getYearMonth().getMonthValue()
+                    );
                 },
 
                 error -> {
