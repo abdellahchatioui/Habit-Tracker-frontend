@@ -72,12 +72,24 @@
             android:layout_marginTop="80dp"/>
 
         <TextView
+            android:id="@+id/tvDaysDone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="📅 Days done: 0 / 30"
+            android:textColor="#B0B0B0"
+            android:textSize="14sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="4dp"/>
+
+        <TextView
             android:id="@+id/tvProgress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="📊 Progress: 0%"
-            android:textColor="@android:color/white"
+            android:textColor="#B0B0B0"
             android:textSize="14sp"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="4dp"/>
+
     </LinearLayout>
 </ScrollView>
