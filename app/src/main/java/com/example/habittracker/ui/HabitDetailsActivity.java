@@ -1,9 +1,13 @@
 package com.example.habittracker.ui;
 
+import android.animation.ObjectAnimator;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +46,7 @@ public class HabitDetailsActivity extends AppCompatActivity {
     private Long habitId;
 
     private TextView tvStreak, tvDaysDone, tvProgress;
+    private ProgressBar progressBar;
     private TextView tvMonthName;
     private CalendarView calendarView;
     private Set<LocalDate> completedDates = new HashSet<>();
@@ -60,6 +65,7 @@ public class HabitDetailsActivity extends AppCompatActivity {
         tvStreak = findViewById(R.id.tvStreak);
         tvDaysDone = findViewById(R.id.tvDaysDone);
         tvProgress = findViewById(R.id.tvProgress);
+        progressBar = findViewById(R.id.progressBar);
 
         tvMonthName = findViewById(R.id.tvMonthName);
         calendarView = findViewById(R.id.calendarView);
