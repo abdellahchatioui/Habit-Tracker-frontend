@@ -188,6 +188,20 @@ public class HabitDetailsActivity extends AppCompatActivity {
 
         tvStreak.setText("🔥 Month Streak: " + streak);
     }
+
+    private void updateMonthStats(int year, int month) {
+
+        int streak = calculateMonthStreak();
+
+        int totalDays = YearMonth.of(year, month).lengthOfMonth();
+        int doneDays = completedDates.size();
+
+        int progress = (int) ((doneDays * 100.0f) / totalDays);
+
+        tvStreak.setText("🔥 Streak: " + streak);
+        tvDaysDone.setText("📅 Days done: " + doneDays + " / " + totalDays);
+        tvProgress.setText("📊 Progress: " + progress + "%");
+    }
     private int calculateMonthStreak() {
 
         if (completedDates.isEmpty()) return 0;
