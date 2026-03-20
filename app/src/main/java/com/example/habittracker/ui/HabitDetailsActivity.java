@@ -41,7 +41,7 @@ public class HabitDetailsActivity extends AppCompatActivity {
 
     private Long habitId;
 
-    private TextView tvStreak;
+    private TextView tvStreak, tvDaysDone, tvProgress;
     private TextView tvMonthName;
     private CalendarView calendarView;
     private Set<LocalDate> completedDates = new HashSet<>();
@@ -58,6 +58,9 @@ public class HabitDetailsActivity extends AppCompatActivity {
         habitId = getIntent().getLongExtra("habit_id", -1);
 
         tvStreak = findViewById(R.id.tvStreak);
+        tvDaysDone = findViewById(R.id.tvDaysDone);
+        tvProgress = findViewById(R.id.tvProgress);
+
         tvMonthName = findViewById(R.id.tvMonthName);
         calendarView = findViewById(R.id.calendarView);
 
@@ -172,18 +175,25 @@ public class HabitDetailsActivity extends AppCompatActivity {
                     calendarView.notifyCalendarChanged();
 
                     // 🔥 ADD THIS
-                    updateMonthStreak();
+                    updateMonthStats(year, month);
                 },
 
                 error -> Toast.makeText(this, "Failed to load logs", Toast.LENGTH_SHORT).show()
         );
     }
 
-    private void updateMonthStreak() {
+    private void updateMonthStats(int year, int month) {
 
         int streak = calculateMonthStreak();
 
-        tvStreak.setText("🔥 Month Streak: " + streak);
+        int totalDays = YearMonth.of(year, month).lengthOfMonth();
+        int doneDays = completedDates.size();
+
+        int progress = (int) ((doneDays * 100.0f) / totalDays);
+
+        tvStreak.setText("🔥 Streak: " + streak);
+        tvDaysDone.setText("📅 Days done: " + doneDays + " / " + totalDays);
+        tvProgress.setText("📊 Progress: " + progress + "%");
     }
     private int calculateMonthStreak() {
 
@@ -231,7 +241,10 @@ public class HabitDetailsActivity extends AppCompatActivity {
                 url,
 
                 response -> {
-                    updateMonthStreak();
+                    updateMonthStats(
+                            calendarView.findFirstVisibleMonth().getYearMonth().getYear(),
+                            calendarView.findFirstVisibleMonth().getYearMonth().getMonthValue()
+                    );
                 },
 
                 error -> {
