@@ -1,11 +1,13 @@
 package com.example.habittracker.ui;
 
 import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -71,6 +73,13 @@ public class HabitDetailsActivity extends AppCompatActivity {
         calendarView = findViewById(R.id.calendarView);
 
         findViewById(R.id.btnBack).setOnClickListener(v -> finish());
+
+        ImageButton btnShowChart = findViewById(R.id.btnShowChart);
+        btnShowChart.setOnClickListener(v -> {
+            Intent intent = new Intent(HabitDetailsActivity.this, ChartActivity.class);
+            intent.putExtra("habit_id", habitId);
+            startActivity(intent);
+        });
 
         setupCalendar();
 
@@ -201,7 +210,6 @@ public class HabitDetailsActivity extends AppCompatActivity {
         tvDaysDone.setText("📅 Days done: " + doneDays + " / " + totalDays);
         tvProgress.setText("📊 Progress: " + progress + "%");
 
-        // ✅ CHANGE COLOR HERE
         if (progress < 25) {
             progressBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
         } else if (progress < 55) {
@@ -210,7 +218,6 @@ public class HabitDetailsActivity extends AppCompatActivity {
             progressBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
         }
 
-        // ✅ THEN animate
         animateProgress(progress);
     }
     private void animateProgress(int progress) {

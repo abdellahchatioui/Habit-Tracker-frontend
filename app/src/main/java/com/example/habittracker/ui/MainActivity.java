@@ -21,7 +21,6 @@ import com.example.habittracker.models.Habit;
 import com.example.habittracker.network.VolleySingleton;
 import com.example.habittracker.repository.HabitRepository;
 import com.example.habittracker.utils.AppConstants;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -65,13 +64,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         recyclerView.setAdapter(adapter);
-
-        FloatingActionButton fab = findViewById(R.id.fabAddHabit);
-
-        fab.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, AddHabitActivity.class);
-            startActivity(intent);
-        });
 
         loadHabits();
     }

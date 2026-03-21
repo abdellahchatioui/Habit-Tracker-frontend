@@ -32,7 +32,9 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
         isCoreLibraryDesugaringEnabled = true
     }
+
 }
+
 
 dependencies {
     implementation(libs.appcompat)
@@ -41,6 +43,7 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation("com.kizitonwose.calendar:view:2.4.0")
     implementation("com.kizitonwose.calendar:compose:2.4.0")
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation("com.android.volley:volley:1.2.1")
     implementation("com.google.android.material:material:1.9.0")
     testImplementation(libs.junit)
